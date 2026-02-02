@@ -7,3 +7,5 @@
   - INT16.ipynb
   - INT16.py
   - Qall.ipynb
+
+How to run?
