@@ -9,5 +9,5 @@
   - Qall.ipynb
 
 How to run?
->> jupyter nbconvert --to script INT8.ipynb
->> jupyter nbconvert --to script INT16.ipynb
+  jupyter nbconvert --to script INT8.ipynb
+  jupyter nbconvert --to script INT16.ipynb
