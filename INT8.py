@@ -3,12 +3,6 @@
 
 # ### Step 1. Prepare calibration data.
 
-# In[2]:
-
-
-from yolo import val
-
-
 # In[1]:
 
 
