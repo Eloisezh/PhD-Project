@@ -1,0 +1,30 @@
+# 全局默认值
+model: "yolo26n-seg.onnx"
+data: "coco.yaml"
+print_original: false
+print_quantized: true
+
+tasks:
+  - tag: "ewq-35"
+    model: "yolo26n-seg-ewq.onnx"
+    nodes:
+      - '/model.2/m.0/cv1/conv/Conv'
+      - '/model.2/cv1/conv/Conv'
+
+  - tag: "kurtboost-35"
+    model: "yolo26n-seg-kurtboost.onnx"
+    nodes:
+      - '/model.10/m/m.0/attn/pe/conv/Conv'
+      - '/model.23/proto/feat_refine.1/conv/Conv'
+
+  - tag: "mes-35"
+    model: "yolo26s-seg-mes.onnx"
+    data: "coco-mes.yaml"     
+    nodes:
+      - '/model.1/conv/Conv'
+
+  - tag: "zd-35"
+    model: "yolo26n-seg-zd.onnx"
+    nodes:
+      - '/model.2/m.0/cv2/conv/Conv'
+      - '/model.19/cv2/conv/Conv'

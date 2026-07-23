@@ -1,0 +1,19 @@
+model: "yolo26n-seg.onnx"
+data: "coco.yaml"
+tag: "our-35"
+print_original: false
+print_quantized: true
+nodes:
+  - '/model.2/m.0/cv1/conv/Conv'
+  - '/model.2/cv1/conv/Conv'
+  - '/model.10/m/m.0/attn/pe/conv/Conv'
+  - '/model.23/proto/feat_refine.1/conv/Conv'
+  - '/model.1/conv/Conv'
+  - '/model.2/m.0/cv2/conv/Conv'
+  - '/model.19/cv2/conv/Conv'
+  - '/model.19/m.0/cv3/conv/Conv'
+  - '/model.3/conv/Conv'
+  - '/model.19/m.0/m/m.1/cv2/conv/Conv'
+  - '/model.2/cv2/conv/Conv'
+  - '/model.23/proto/feat_fuse/conv/Conv'
+  - '/model.16/cv2/conv/Conv'
