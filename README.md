@@ -49,7 +49,7 @@ python run_quant.py --config configs/example.yaml --tag test-debug --model yolo2
 
 ## 配置文件格式
 
-### 单任务格式（`configs/example.yaml`）
+### 单任务格式（`configs/run.yaml`）
 
 ```yaml
 model: "yolo26n-seg.onnx"
@@ -71,7 +71,7 @@ nodes:
 | `print_original` | 否（默认 false） | 是否打印原始模型信息 |
 | `print_quantized` | 否（默认 true） | 是否打印量化后模型信息 |
 
-### 批量任务格式（`configs/batch_example.yaml`）
+### 批量任务格式（`configs/batch.yaml`）
 
 ```yaml
 model: "yolo26n-seg.onnx"    # 全局默认值
