@@ -25,13 +25,13 @@ pip install pyyaml
 ### 1. 跑单个量化任务
 
 ```bash
-python run_quant.py --config configs/example.yaml
+python run_quant.py --config configs/run.yaml
 ```
 
 ### 2. 批量跑多个量化任务
 
 ```bash
-python run_quant.py --config configs/batch_example.yaml
+python run_quant.py --config configs/batch.yaml
 ```
 
 ### 3. 命令行临时覆盖参数（仅单任务配置生效）
