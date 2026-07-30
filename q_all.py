@@ -2,7 +2,7 @@ import numpy as np
 
 from ewq import ewq
 from our_method import statisticFilter
-from INT8 import INT8
+import INT8
 
 for ratio in np.arange(0.35, 1.00, 0.1):
 	model = "yolo26n-seg.onnx"
