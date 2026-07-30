@@ -83,11 +83,11 @@ def _save_output(output_dict, output_dir, metric_name, model_path):
     return out_path
 
 
-# In[21]:
+# In[ ]:
 
 
 class ewq():
-	def __init__(self, model_path="E:\code dissertation\Quantization-YOLOv8\yolo26n-seg.onnx", target=0.35):
+	def __init__(self, model_path="yolo26n-seg.onnx", target=0.35):
 		self.model_path = model_path
 		self.target = target
 
