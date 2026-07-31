@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[19]:
+# In[1]:
 
 
 import os
@@ -16,7 +16,7 @@ def _weight_entropy(weight_matrix, epsilon=0.01):
     w_flat = weight_matrix.view(-1).float()
     size_w = w_flat.numel()
     p = F.softmax(w_flat, dim=0)
-    entropy = -torch.sum(p * torch.log(p) + epsilon).item()
+    entropy = -torch.sum(p * torch.log(p + epsilon)).item()
     return entropy, size_w
 
 def _block_ewq_score(weight_list, epsilon=0.01):
@@ -35,7 +35,7 @@ def _block_ewq_score(weight_list, epsilon=0.01):
     return 0.0
 
 
-# In[20]:
+# In[2]:
 
 
 def _normalize_scores(scores):
@@ -83,7 +83,7 @@ def _save_output(output_dict, output_dir, metric_name, model_path):
     return out_path
 
 
-# In[ ]:
+# In[3]:
 
 
 class ewq():
@@ -110,6 +110,7 @@ class ewq():
 				score = _block_ewq_score([weights])
 				# print(score)
 				layer_scores.append(score)
+				# print(layer_scores)
 
 		output_dir = "./results"
 		model_name = os.path.basename(self.model_path.rstrip("/"))
@@ -125,6 +126,7 @@ class ewq():
 		# print(raw_scores)
 		# print(layer_names)
 		raw_scores = _normalize_scores(raw_scores)
+		# print(raw_scores)
 
 		ranked_nodes = []
 
@@ -171,7 +173,7 @@ class ewq():
 		return selected
 
 
-# In[22]:
+# In[4]:
 
 
 if __name__ == '__main__':
