@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[21]:
+# In[9]:
 
 
 import onnx
@@ -14,7 +14,7 @@ import json
 from pathlib import Path
 
 
-# In[22]:
+# In[10]:
 
 
 def find_closest_below(d, target):
@@ -35,7 +35,7 @@ def find_closest_below(d, target):
 	return best_keys, best_value
 
 
-# In[ ]:
+# In[11]:
 
 
 class statisticFilter():
@@ -45,7 +45,7 @@ class statisticFilter():
 		excel_path="onnx_weight_stats-26.xlsx",
 		b_idx=10,
 		n_idx=22,
-		target=0.35,
+		target=0.65,
 		cache_path="alpha_beta_cache.json"
 	):
 		self.model_path = model_path
@@ -134,11 +134,12 @@ class statisticFilter():
 			#### end helper func
 
 			#### 2. calculate params each alpha-beta pair
-			for ta_int in range(1, 51):
-				ta = ta_int / 10
+			for ta in range(1, 6):
+				# ta = ta_int / 10
 
 				for tb in range(1, 51):
-					key = f"{ta:.1f}-{tb}"
+					# key = f"{ta:.1f}-{tb}"
+					key=f"{ta}-{tb}"
 
 					alpha_beta_params[key] = 0
 					alpha_beta_nodes[key] = []
@@ -230,10 +231,10 @@ class statisticFilter():
 		return selected
 
 
-# In[24]:
+# In[12]:
 
 
 if __name__ == '__main__':
 	filter = statisticFilter()
-	filter.statistic_filter()
+	filter.filter()
 
