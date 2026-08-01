@@ -46,7 +46,7 @@ class statisticFilter():
         b_idx=10,
         n_idx=22,
         target=0.35,
-        cache_path="alpha_beta_cache_mean_only.json"
+        cache_path="alpha_beta_cache_mean_only.json"  ### remember to deletethe cache path if overwrite 
     ):
         self.model_path = model_path
         self.excel_path = excel_path
