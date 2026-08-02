@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[37]:
 
 
 import os
@@ -35,7 +35,7 @@ def _block_ewq_score(weight_list, epsilon=0.01):
     return 0.0
 
 
-# In[2]:
+# In[38]:
 
 
 def _normalize_scores(scores):
@@ -83,7 +83,7 @@ def _save_output(output_dict, output_dir, metric_name, model_path):
     return out_path
 
 
-# In[3]:
+# In[39]:
 
 
 class ewq():
@@ -95,18 +95,20 @@ class ewq():
 		threshold = 1.0
 		layer_scores = []
 		layer_names = []
+		weight_params = {}
 
 		model = onnx.load(self.model_path)
 		inits = {init.name: init for init in model.graph.initializer}  # Get the initializers of the original modelq
 		for init in model.graph.initializer:
 			if "weight" in init.name and "conv" in init.name:
 				# print("\n",init.name)
-				scores = []
-
 				layer_names.append(init.name)
 				total_params = 0
 				W_np = numpy_helper.to_array(inits[init.name])
 				weights = torch.from_numpy(W_np).float()
+				w_flat = weights.view(-1).float()
+				size_w = w_flat.numel()
+				weight_params[init.name] = size_w
 				score = _block_ewq_score([weights])
 				# print(score)
 				layer_scores.append(score)
@@ -129,6 +131,7 @@ class ewq():
 		# print(raw_scores)
 
 		ranked_nodes = []
+		ranked_weights = []
 
 		print(f"\n[*] Top-5 most sensitive layers (0-indexed):")
 		ranked = _rank_layers(raw_scores)
@@ -137,9 +140,11 @@ class ewq():
 
 		for rank, layer_idx in enumerate(ranked):
 			ranked_nodes.append(layer_names[layer_idx].replace('.weight', ''))
-
+			ranked_weights.append(layer_names[layer_idx])
+		# print(ranked_nodes)
+		print(ranked_weights)
 		#### helper func
-		weight_params = []
+
 		total_param = sum(int(np.prod(init.dims)) for init in model.graph.initializer)
 		target_param = (1 - self.target) / 0.75 * total_param
 
@@ -148,16 +153,13 @@ class ewq():
 		for node in model.graph.node:
 			### init_to_node ref
 			init_to_node.update({inp: node.name for inp in node.input if inp in inits})
-			### store params per-node
-			n_params = sum(int(np.prod(inits[inp].dims)) for inp in node.input if inp in inits)
-			if n_params > 0:
-				weight_params.append((node.name, n_params))
-		#### end helper func
+		print(init_to_node)
 
+		print(weight_params)
 		selected, acc = [], 0
-		for i in range(len(weight_params )):
-			name, w = weight_params[i]
-			selected.append(name)
+		for weight in ranked_weights:
+			w = weight_params[weight]
+			selected.append(init_to_node[weight])
 			acc += w
 			if acc >= target_param:
 				acc -= w
@@ -170,19 +172,14 @@ class ewq():
 		selected
 		print(len(selected))
 		print(acc)
+		print(selected)
 		return selected
 
 
-# In[4]:
+# In[40]:
 
 
 if __name__ == '__main__':
 	ewq = ewq()
 	ewq.filter()	
-
-
-# In[ ]:
-
-
-
 
