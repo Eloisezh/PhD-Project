@@ -227,58 +227,58 @@ if __name__ == '__main__':
 # 	return '.'.join(cleaned)
 
 
-# In[22]:
+# In[ ]:
 
 
-inits = {init.name: init for init in model.graph.initializer}
-init_to_node = {}
-for node in model.graph.node:
-    for inp in node.input:
-        if inp in inits:
-            init_to_node[inp] = node.name
+# inits = {init.name: init for init in model.graph.initializer}
+# init_to_node = {}
+# for node in model.graph.node:
+#     for inp in node.input:
+#         if inp in inits:
+#             init_to_node[inp] = node.name
 
-print(init_to_node.keys())
-# 使用
-print(init_to_node)
+# print(init_to_node.keys())
+# # 使用
+# print(init_to_node)
 
 
 # In[ ]:
 
 
-target_ratio = 0.35
-initializers = {init.name: init for init in model.graph.initializer}
-quantizable_ops = {"Conv"}
+# target_ratio = 0.35
+# initializers = {init.name: init for init in model.graph.initializer}
+# quantizable_ops = {"Conv"}
 
-node_weights = []
-i = 0
-for node_name in ranked_nodes:
-    for node in model.graph.node:
-        if node.name == init_to_node[f"{node_name}.weight"]:
-            params = sum(
-                int(np.prod(initializers[inp].dims))
-                for inp in node.input if inp in initializers
-            )
-            if params > 0:
-                node_weights.append((node.name, params))
-            break
-print("len",len(node_weights))
-total = sum(w for _, w in node_weights)
-target = (1 - target_ratio) / 0.75 * total
+# node_weights = []
+# i = 0
+# for node_name in ranked_nodes:
+#     for node in model.graph.node:
+#         if node.name == init_to_node[f"{node_name}.weight"]:
+#             params = sum(
+#                 int(np.prod(initializers[inp].dims))
+#                 for inp in node.input if inp in initializers
+#             )
+#             if params > 0:
+#                 node_weights.append((node.name, params))
+#             break
+# print("len",len(node_weights))
+# total = sum(w for _, w in node_weights)
+# target = (1 - target_ratio) / 0.75 * total
 
-# rng = np.random.default_rng(seed)
-# indices = rng.permutation(len(node_weights))
+# # rng = np.random.default_rng(seed)
+# # indices = rng.permutation(len(node_weights))
 
-selected, acc = [], 0
-for i in range(len(node_weights)):
-    name, w = node_weights[i]
-    selected.append(name)
-    acc += w
-    if acc >= target:
-        break
-print(acc)
-print(target)
+# selected, acc = [], 0
+# for i in range(len(node_weights)):
+#     name, w = node_weights[i]
+#     selected.append(name)
+#     acc += w
+#     if acc >= target:
+#         break
+# print(acc)
+# print(target)
 
-print(len(ranked_nodes))
-print(len(selected))
-selected
+# print(len(ranked_nodes))
+# print(len(selected))
+# selected
 
