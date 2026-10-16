@@ -3,7 +3,7 @@
 
 # ### Step 1. Prepare calibration data.
 
-# In[1]:
+# In[29]:
 
 
 import numpy as np
@@ -50,7 +50,38 @@ class ImageCalibrationDataReader(CalibrationDataReader):
 
 # ### Step 2. Static quantize the model.
 
-# In[ ]:
+# In[30]:
+
+
+import os, json, datetime
+
+def addPerformance(boxmap50, boxmap, segmap50, segmap, size, name, nodes_to_quantize=None):
+	path = "performance.json"
+
+	config = {
+		"model_name": name,
+		"model_size_mb": float(size),
+		"box_map50": float(boxmap50),
+		"box_map50_95": float(boxmap),
+		"seg_map50": float(segmap50),
+		"seg_map50_95": float(segmap),
+		"nodes_to_quantize": nodes_to_quantize,
+	}
+
+	# load existing records (if any), append, and write back
+	records = []
+	if os.path.exists(path) and os.path.getsize(path) > 0:
+		with open(path, "r", encoding="utf-8") as f:
+				records = json.load(f)
+	records.append(config)
+
+	with open(path, "w", encoding="utf-8") as f:
+		json.dump(records, f, indent=4)
+
+	return config
+
+
+# In[31]:
 
 
 import os, onnx, datetime
@@ -78,10 +109,7 @@ class StaticQuantizer():
 			output = ">>> VAL BEFORE", performance.box.map50, performance.box.map, performance.seg.map50, performance.seg.map, "\n MODEL_SIZE", size_mb, "\n MODEL_NAME", self.model_path, "<<<"
 			print(output)
 			### help func starts (ignore)
-			current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-			with open("data.txt", "a", encoding="utf-8") as f:
-				f.write(f"[{current_time}] {output}\n")
-				f.write("-" * 80 + "\n")
+			addPerformance(performance.box.map50, performance.box.map, performance.seg.map50, performance.seg.map, size_mb, self.model_path)
 			### help func ends
 
 		# static quantize (main)
@@ -131,16 +159,14 @@ class StaticQuantizer():
 			q_performance = q_model.val(data=self.data,workers=0,batch=4)
 			# q_performance = val(model=q_model,data=self.data,workers=0,batch=2)
 			### OUTPUT
-			size_mb = os.path.getsize(quantized_path)/ (1024 * 1024)
-			q_output = ">>> VAL AFTER", q_performance.box.map50, q_performance.box.map, q_performance.seg.map50, q_performance.seg.map, "\n MODEL_SIZE", size_mb, "\n MODEL_NAME", quantized_path, "\n DATASET", self.data,"<<<"
+			q_size_mb = os.path.getsize(quantized_path)/ (1024 * 1024)
+			q_output = ">>> VAL AFTER", q_performance.box.map50, q_performance.box.map, q_performance.seg.map50, q_performance.seg.map, "\n MODEL_SIZE", q_size_mb, "\n MODEL_NAME", quantized_path, "\n DATASET", self.data,"<<<"
 			with open("result.txt", "a", encoding="utf-8") as f:
 				print(q_output, file=f)
 			print(q_output)
+
 			### help func starts (ignore)
-			q_current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-			with open("data.txt", "a", encoding="utf-8") as f:
-				f.write(f"[{q_current_time}] {q_output}\n")
-				f.write("-" * 80 + "\n")
+			addPerformance(q_performance.box.map50, q_performance.box.map, q_performance.seg.map50, q_performance.seg.map, q_size_mb, quantized_path, nodes_to_quantize=self.nodes_quantize)
 			### help func ends
 
 		return (q_performance.box.map50, q_performance.box.map, q_performance.seg.map50, q_performance.seg.map, quantized_path) if self.print_quantized else quantized_path
@@ -148,22 +174,22 @@ class StaticQuantizer():
 
 # ### Step 3. Test using YOLO11 Fish.
 
-# In[7]:
+# In[32]:
 
 
 if __name__ == "__main__":
-	model = "E:/code dissertation/ultralytics_v11-8.3.9/ultralytics_v11-8.3.9/runs/finetune-fish-combined9/weights/best.onnx"
-	data = "D:/app/datasets/fish-combined/data.yaml"
-	nodes_exclude = ['/model.23/proto/cv1/conv/Conv', '/model.23/cv4.0/cv4.0.0/conv/Conv', '/model.23/cv2.0/cv2.0.0/conv/Conv', '/model.23/cv3.0/cv3.0.0/cv3.0.0.0/conv/Conv', '/model.23/proto/cv1/act/Sigmoid', '/model.23/cv4.0/cv4.0.0/act/Sigmoid', '/model.23/cv2.0/cv2.0.0/act/Sigmoid', '/model.23/cv3.0/cv3.0.0/cv3.0.0.0/act/Sigmoid', '/model.23/proto/cv1/act/Mul', '/model.23/cv4.0/cv4.0.0/act/Mul', '/model.23/cv2.0/cv2.0.0/act/Mul', '/model.23/cv3.0/cv3.0.0/cv3.0.0.0/act/Mul', '/model.23/proto/upsample/ConvTranspose', '/model.23/cv4.0/cv4.0.1/conv/Conv', '/model.23/cv2.0/cv2.0.1/conv/Conv', '/model.23/cv3.0/cv3.0.0/cv3.0.0.1/conv/Conv', '/model.23/proto/cv2/conv/Conv', '/model.23/cv4.0/cv4.0.1/act/Sigmoid', '/model.23/cv2.0/cv2.0.1/act/Sigmoid', '/model.23/cv3.0/cv3.0.0/cv3.0.0.1/act/Sigmoid', '/model.23/proto/cv2/act/Sigmoid', '/model.23/cv4.0/cv4.0.1/act/Mul', '/model.23/cv2.0/cv2.0.1/act/Mul', '/model.23/cv3.0/cv3.0.0/cv3.0.0.1/act/Mul', '/model.23/proto/cv2/act/Mul', '/model.23/cv4.0/cv4.0.2/Conv', '/model.23/cv2.0/cv2.0.2/Conv', '/model.23/cv3.0/cv3.0.1/cv3.0.1.0/conv/Conv', '/model.23/proto/cv3/conv/Conv', '/model.23/Reshape', '/model.23/cv3.0/cv3.0.1/cv3.0.1.0/act/Sigmoid', '/model.23/proto/cv3/act/Sigmoid', '/model.23/cv3.0/cv3.0.1/cv3.0.1.0/act/Mul', '/model.23/proto/cv3/act/Mul', '/model.23/cv3.0/cv3.0.1/cv3.0.1.1/conv/Conv', '/model.23/cv3.0/cv3.0.1/cv3.0.1.1/act/Sigmoid', '/model.23/cv3.0/cv3.0.1/cv3.0.1.1/act/Mul', '/model.23/cv3.0/cv3.0.2/Conv', '/model.23/Concat_1', '/model.23/Reshape_3', '/model.23/cv4.1/cv4.1.0/conv/Conv', '/model.23/cv2.1/cv2.1.0/conv/Conv', '/model.23/cv3.1/cv3.1.0/cv3.1.0.0/conv/Conv', '/model.23/cv4.1/cv4.1.0/act/Sigmoid', '/model.23/cv2.1/cv2.1.0/act/Sigmoid', '/model.23/cv3.1/cv3.1.0/cv3.1.0.0/act/Sigmoid', '/model.23/cv4.1/cv4.1.0/act/Mul', '/model.23/cv2.1/cv2.1.0/act/Mul', '/model.23/cv3.1/cv3.1.0/cv3.1.0.0/act/Mul', '/model.23/cv4.1/cv4.1.1/conv/Conv', '/model.23/cv2.1/cv2.1.1/conv/Conv', '/model.23/cv3.1/cv3.1.0/cv3.1.0.1/conv/Conv', '/model.23/cv4.1/cv4.1.1/act/Sigmoid', '/model.23/cv2.1/cv2.1.1/act/Sigmoid', '/model.23/cv3.1/cv3.1.0/cv3.1.0.1/act/Sigmoid', '/model.23/cv4.1/cv4.1.1/act/Mul', '/model.23/cv2.1/cv2.1.1/act/Mul', '/model.23/cv3.1/cv3.1.0/cv3.1.0.1/act/Mul', '/model.23/cv4.1/cv4.1.2/Conv', '/model.23/cv2.1/cv2.1.2/Conv', '/model.23/cv3.1/cv3.1.1/cv3.1.1.0/conv/Conv', '/model.23/Reshape_1', '/model.23/cv3.1/cv3.1.1/cv3.1.1.0/act/Sigmoid', '/model.23/cv3.1/cv3.1.1/cv3.1.1.0/act/Mul', '/model.23/cv3.1/cv3.1.1/cv3.1.1.1/conv/Conv', '/model.23/cv3.1/cv3.1.1/cv3.1.1.1/act/Sigmoid', '/model.23/cv3.1/cv3.1.1/cv3.1.1.1/act/Mul', '/model.23/cv3.1/cv3.1.2/Conv', '/model.23/Concat_2', '/model.23/Reshape_4', '/model.23/cv4.2/cv4.2.0/conv/Conv', '/model.23/cv2.2/cv2.2.0/conv/Conv', '/model.23/cv3.2/cv3.2.0/cv3.2.0.0/conv/Conv', '/model.23/cv4.2/cv4.2.0/act/Sigmoid', '/model.23/cv2.2/cv2.2.0/act/Sigmoid', '/model.23/cv3.2/cv3.2.0/cv3.2.0.0/act/Sigmoid', '/model.23/cv4.2/cv4.2.0/act/Mul', '/model.23/cv2.2/cv2.2.0/act/Mul', '/model.23/cv3.2/cv3.2.0/cv3.2.0.0/act/Mul', '/model.23/cv4.2/cv4.2.1/conv/Conv', '/model.23/cv2.2/cv2.2.1/conv/Conv', '/model.23/cv3.2/cv3.2.0/cv3.2.0.1/conv/Conv', '/model.23/cv4.2/cv4.2.1/act/Sigmoid', '/model.23/cv2.2/cv2.2.1/act/Sigmoid', '/model.23/cv3.2/cv3.2.0/cv3.2.0.1/act/Sigmoid', '/model.23/cv4.2/cv4.2.1/act/Mul', '/model.23/cv2.2/cv2.2.1/act/Mul', '/model.23/cv3.2/cv3.2.0/cv3.2.0.1/act/Mul', '/model.23/cv4.2/cv4.2.2/Conv', '/model.23/cv2.2/cv2.2.2/Conv', '/model.23/cv3.2/cv3.2.1/cv3.2.1.0/conv/Conv', '/model.23/Reshape_2', '/model.23/cv3.2/cv3.2.1/cv3.2.1.0/act/Sigmoid', '/model.23/Concat', '/model.23/cv3.2/cv3.2.1/cv3.2.1.0/act/Mul', '/model.23/cv3.2/cv3.2.1/cv3.2.1.1/conv/Conv', '/model.23/cv3.2/cv3.2.1/cv3.2.1.1/act/Sigmoid', '/model.23/cv3.2/cv3.2.1/cv3.2.1.1/act/Mul', '/model.23/cv3.2/cv3.2.2/Conv', '/model.23/Concat_3', '/model.23/Reshape_5', '/model.23/Concat_4', '/model.23/Split', '/model.23/dfl/Reshape', '/model.23/Sigmoid', '/model.23/dfl/Transpose', '/model.23/dfl/Softmax', '/model.23/dfl/conv/Conv', '/model.23/dfl/Reshape_1', '/model.23/Slice', '/model.23/Slice_1', '/model.23/Sub', '/model.23/Add_1', '/model.23/Add_2', '/model.23/Sub_1', '/model.23/Div_1', '/model.23/Concat_5', '/model.23/Mul_2', '/model.23/Concat_6']
-	idx = 0
-	quantizer = StaticQuantizer(model, data, nodes_exclude, idx, print_original=False)
-	quantizer.static_quantize()
+	# model = "E:/code dissertation/ultralytics_v11-8.3.9/ultralytics_v11-8.3.9/runs/finetune-fish-combined9/weights/best.onnx"
+	# data = "D:/app/datasets/fish-combined/data.yaml"
+	# nodes_exclude = ['/model.23/proto/cv1/conv/Conv', '/model.23/cv4.0/cv4.0.0/conv/Conv', '/model.23/cv2.0/cv2.0.0/conv/Conv', '/model.23/cv3.0/cv3.0.0/cv3.0.0.0/conv/Conv', '/model.23/proto/cv1/act/Sigmoid', '/model.23/cv4.0/cv4.0.0/act/Sigmoid', '/model.23/cv2.0/cv2.0.0/act/Sigmoid', '/model.23/cv3.0/cv3.0.0/cv3.0.0.0/act/Sigmoid', '/model.23/proto/cv1/act/Mul', '/model.23/cv4.0/cv4.0.0/act/Mul', '/model.23/cv2.0/cv2.0.0/act/Mul', '/model.23/cv3.0/cv3.0.0/cv3.0.0.0/act/Mul', '/model.23/proto/upsample/ConvTranspose', '/model.23/cv4.0/cv4.0.1/conv/Conv', '/model.23/cv2.0/cv2.0.1/conv/Conv', '/model.23/cv3.0/cv3.0.0/cv3.0.0.1/conv/Conv', '/model.23/proto/cv2/conv/Conv', '/model.23/cv4.0/cv4.0.1/act/Sigmoid', '/model.23/cv2.0/cv2.0.1/act/Sigmoid', '/model.23/cv3.0/cv3.0.0/cv3.0.0.1/act/Sigmoid', '/model.23/proto/cv2/act/Sigmoid', '/model.23/cv4.0/cv4.0.1/act/Mul', '/model.23/cv2.0/cv2.0.1/act/Mul', '/model.23/cv3.0/cv3.0.0/cv3.0.0.1/act/Mul', '/model.23/proto/cv2/act/Mul', '/model.23/cv4.0/cv4.0.2/Conv', '/model.23/cv2.0/cv2.0.2/Conv', '/model.23/cv3.0/cv3.0.1/cv3.0.1.0/conv/Conv', '/model.23/proto/cv3/conv/Conv', '/model.23/Reshape', '/model.23/cv3.0/cv3.0.1/cv3.0.1.0/act/Sigmoid', '/model.23/proto/cv3/act/Sigmoid', '/model.23/cv3.0/cv3.0.1/cv3.0.1.0/act/Mul', '/model.23/proto/cv3/act/Mul', '/model.23/cv3.0/cv3.0.1/cv3.0.1.1/conv/Conv', '/model.23/cv3.0/cv3.0.1/cv3.0.1.1/act/Sigmoid', '/model.23/cv3.0/cv3.0.1/cv3.0.1.1/act/Mul', '/model.23/cv3.0/cv3.0.2/Conv', '/model.23/Concat_1', '/model.23/Reshape_3', '/model.23/cv4.1/cv4.1.0/conv/Conv', '/model.23/cv2.1/cv2.1.0/conv/Conv', '/model.23/cv3.1/cv3.1.0/cv3.1.0.0/conv/Conv', '/model.23/cv4.1/cv4.1.0/act/Sigmoid', '/model.23/cv2.1/cv2.1.0/act/Sigmoid', '/model.23/cv3.1/cv3.1.0/cv3.1.0.0/act/Sigmoid', '/model.23/cv4.1/cv4.1.0/act/Mul', '/model.23/cv2.1/cv2.1.0/act/Mul', '/model.23/cv3.1/cv3.1.0/cv3.1.0.0/act/Mul', '/model.23/cv4.1/cv4.1.1/conv/Conv', '/model.23/cv2.1/cv2.1.1/conv/Conv', '/model.23/cv3.1/cv3.1.0/cv3.1.0.1/conv/Conv', '/model.23/cv4.1/cv4.1.1/act/Sigmoid', '/model.23/cv2.1/cv2.1.1/act/Sigmoid', '/model.23/cv3.1/cv3.1.0/cv3.1.0.1/act/Sigmoid', '/model.23/cv4.1/cv4.1.1/act/Mul', '/model.23/cv2.1/cv2.1.1/act/Mul', '/model.23/cv3.1/cv3.1.0/cv3.1.0.1/act/Mul', '/model.23/cv4.1/cv4.1.2/Conv', '/model.23/cv2.1/cv2.1.2/Conv', '/model.23/cv3.1/cv3.1.1/cv3.1.1.0/conv/Conv', '/model.23/Reshape_1', '/model.23/cv3.1/cv3.1.1/cv3.1.1.0/act/Sigmoid', '/model.23/cv3.1/cv3.1.1/cv3.1.1.0/act/Mul', '/model.23/cv3.1/cv3.1.1/cv3.1.1.1/conv/Conv', '/model.23/cv3.1/cv3.1.1/cv3.1.1.1/act/Sigmoid', '/model.23/cv3.1/cv3.1.1/cv3.1.1.1/act/Mul', '/model.23/cv3.1/cv3.1.2/Conv', '/model.23/Concat_2', '/model.23/Reshape_4', '/model.23/cv4.2/cv4.2.0/conv/Conv', '/model.23/cv2.2/cv2.2.0/conv/Conv', '/model.23/cv3.2/cv3.2.0/cv3.2.0.0/conv/Conv', '/model.23/cv4.2/cv4.2.0/act/Sigmoid', '/model.23/cv2.2/cv2.2.0/act/Sigmoid', '/model.23/cv3.2/cv3.2.0/cv3.2.0.0/act/Sigmoid', '/model.23/cv4.2/cv4.2.0/act/Mul', '/model.23/cv2.2/cv2.2.0/act/Mul', '/model.23/cv3.2/cv3.2.0/cv3.2.0.0/act/Mul', '/model.23/cv4.2/cv4.2.1/conv/Conv', '/model.23/cv2.2/cv2.2.1/conv/Conv', '/model.23/cv3.2/cv3.2.0/cv3.2.0.1/conv/Conv', '/model.23/cv4.2/cv4.2.1/act/Sigmoid', '/model.23/cv2.2/cv2.2.1/act/Sigmoid', '/model.23/cv3.2/cv3.2.0/cv3.2.0.1/act/Sigmoid', '/model.23/cv4.2/cv4.2.1/act/Mul', '/model.23/cv2.2/cv2.2.1/act/Mul', '/model.23/cv3.2/cv3.2.0/cv3.2.0.1/act/Mul', '/model.23/cv4.2/cv4.2.2/Conv', '/model.23/cv2.2/cv2.2.2/Conv', '/model.23/cv3.2/cv3.2.1/cv3.2.1.0/conv/Conv', '/model.23/Reshape_2', '/model.23/cv3.2/cv3.2.1/cv3.2.1.0/act/Sigmoid', '/model.23/Concat', '/model.23/cv3.2/cv3.2.1/cv3.2.1.0/act/Mul', '/model.23/cv3.2/cv3.2.1/cv3.2.1.1/conv/Conv', '/model.23/cv3.2/cv3.2.1/cv3.2.1.1/act/Sigmoid', '/model.23/cv3.2/cv3.2.1/cv3.2.1.1/act/Mul', '/model.23/cv3.2/cv3.2.2/Conv', '/model.23/Concat_3', '/model.23/Reshape_5', '/model.23/Concat_4', '/model.23/Split', '/model.23/dfl/Reshape', '/model.23/Sigmoid', '/model.23/dfl/Transpose', '/model.23/dfl/Softmax', '/model.23/dfl/conv/Conv', '/model.23/dfl/Reshape_1', '/model.23/Slice', '/model.23/Slice_1', '/model.23/Sub', '/model.23/Add_1', '/model.23/Add_2', '/model.23/Sub_1', '/model.23/Div_1', '/model.23/Concat_5', '/model.23/Mul_2', '/model.23/Concat_6']
+	# idx = 0
+	# quantizer = StaticQuantizer(model, data, nodes_exclude, idx, print_original=False)
+	# quantizer.static_quantize()
 
 	model = "yolo26n-seg.onnx"
 	data = "coco8-seg.yaml"
 	idx = 0
 	nodes_exclude = ['/model.1/conv/Conv', '/model.2/cv1/conv/Conv', '/model.2/m.0/cv1/conv/Conv', '/model.2/cv2/conv/Conv', '/model.3/conv/Conv', '/model.4/cv1/conv/Conv', '/model.4/m.0/cv1/conv/Conv', '/model.4/m.0/cv2/conv/Conv', '/model.4/cv2/conv/Conv', '/model.5/conv/Conv', '/model.6/cv1/conv/Conv', '/model.6/m.0/cv1/conv/Conv', '/model.6/m.0/cv2/conv/Conv', '/model.6/m.0/m/m.0/cv1/conv/Conv', '/model.6/m.0/m/m.0/cv2/conv/Conv', '/model.6/m.0/m/m.1/cv1/conv/Conv', '/model.6/m.0/m/m.1/cv2/conv/Conv', '/model.6/m.0/cv3/conv/Conv', '/model.6/cv2/conv/Conv', '/model.7/conv/Conv', '/model.8/cv1/conv/Conv', '/model.8/m.0/cv1/conv/Conv', '/model.8/m.0/cv2/conv/Conv', '/model.8/m.0/m/m.0/cv1/conv/Conv', '/model.8/m.0/m/m.0/cv2/conv/Conv', '/model.8/m.0/m/m.1/cv1/conv/Conv', '/model.8/m.0/m/m.1/cv2/conv/Conv', '/model.8/m.0/cv3/conv/Conv', '/model.8/cv2/conv/Conv', '/model.9/cv1/conv/Conv', '/model.9/cv2/conv/Conv', '/model.10/cv1/conv/Conv', '/model.10/m/m.0/attn/qkv/conv/Conv', '/model.10/m/m.0/attn/pe/conv/Conv', '/model.10/m/m.0/attn/proj/conv/Conv', '/model.10/m/m.0/ffn/ffn.0/conv/Conv', '/model.10/m/m.0/ffn/ffn.1/conv/Conv', '/model.10/cv2/conv/Conv', '/model.13/cv1/conv/Conv', '/model.13/m.0/cv1/conv/Conv', '/model.13/m.0/m/m.0/cv2/conv/Conv', '/model.13/m.0/m/m.1/cv1/conv/Conv', '/model.13/m.0/m/m.1/cv2/conv/Conv', '/model.13/m.0/cv3/conv/Conv', '/model.13/cv2/conv/Conv', '/model.16/cv1/conv/Conv', '/model.16/m.0/cv1/conv/Conv', '/model.16/m.0/m/m.0/cv2/conv/Conv', '/model.16/m.0/m/m.1/cv1/conv/Conv', '/model.16/m.0/cv3/conv/Conv', '/model.17/conv/Conv', '/model.23/one2one_cv4.0/one2one_cv4.0.0/conv/Conv', '/model.23/one2one_cv2.0/one2one_cv2.0.1/conv/Conv', '/model.23/one2one_cv3.0/one2one_cv3.0.0/one2one_cv3.0.0.1/conv/Conv', '/model.23/one2one_cv4.0/one2one_cv4.0.1/conv/Conv', '/model.23/one2one_cv2.0/one2one_cv2.0.2/Conv', '/model.23/one2one_cv4.0/one2one_cv4.0.2/Conv', '/model.19/m.0/cv1/conv/Conv', '/model.23/one2one_cv3.0/one2one_cv3.0.2/Conv', '/model.19/m.0/m/m.0/cv2/conv/Conv', '/model.19/m.0/m/m.1/cv1/conv/Conv', '/model.20/conv/Conv', '/model.23/one2one_cv2.1/one2one_cv2.1.0/conv/Conv', '/model.23/one2one_cv4.1/one2one_cv4.1.0/conv/Conv', '/model.23/proto/feat_refine.0/conv/Conv', '/model.23/one2one_cv2.1/one2one_cv2.1.1/conv/Conv', '/model.23/one2one_cv3.1/one2one_cv3.1.0/one2one_cv3.1.0.1/conv/Conv', '/model.23/one2one_cv2.1/one2one_cv2.1.2/Conv', '/model.23/one2one_cv4.1/one2one_cv4.1.2/Conv', '/model.22/m.0/m.0.0/cv1/conv/Conv', '/model.22/m.0/m.0.0/cv2/conv/Conv', '/model.23/one2one_cv3.1/one2one_cv3.1.2/Conv', '/model.22/m.0/m.0.1/attn/proj/conv/Conv', '/model.22/m.0/m.0.1/ffn/ffn.0/conv/Conv', '/model.22/m.0/m.0.1/ffn/ffn.1/conv/Conv', '/model.22/cv2/conv/Conv', '/model.23/one2one_cv2.2/one2one_cv2.2.0/conv/Conv', '/model.23/one2one_cv4.2/one2one_cv4.2.0/conv/Conv', '/model.23/proto/feat_refine.1/conv/Conv', '/model.23/one2one_cv2.2/one2one_cv2.2.1/conv/Conv', '/model.23/one2one_cv3.2/one2one_cv3.2.0/one2one_cv3.2.0.1/conv/Conv', '/model.23/one2one_cv4.2/one2one_cv4.2.1/conv/Conv', '/model.23/proto/feat_fuse/conv/Conv', '/model.23/one2one_cv2.2/one2one_cv2.2.2/Conv', '/model.23/one2one_cv4.2/one2one_cv4.2.2/Conv', '/model.23/proto/cv1/conv/Conv', '/model.23/proto/upsample/ConvTranspose', '/model.23/one2one_cv3.2/one2one_cv3.2.2/Conv', '/model.23/proto/cv2/conv/Conv']
 
-	quantizer = StaticQuantizer(model, data, nodes_exclude, idx, print_original=True)
+	quantizer = StaticQuantizer(model, data, nodes_exclude, idx, print_original=True, print_quantized=True)
 	quantizer.static_quantize()
 

@@ -1,0 +1,769 @@
+{
+    "baselineRatios": [
+        0.11042317217616023,
+        0.22068482825454938,
+        0.29572401086345307,
+        0.48145555914480215,
+        0.48145555914480215,
+        0.6100941579029229,
+        0.7024095808956367,
+        0.7820429991744733
+    ],
+    "NODES": [
+        [
+            [
+                0.11042317217616023,
+                "arr_block"
+            ],
+            [
+                0.11042317217616023,
+                "arr_layer"
+            ],
+            [
+                0.11042317217616023,
+                "arr_block_layer"
+            ]
+        ],
+        [
+            [
+                0.22068482825454938,
+                "arr_block"
+            ],
+            [
+                0.22068482825454938,
+                "arr_layer"
+            ],
+            [
+                0.22068482825454938,
+                "arr_block_layer"
+            ]
+        ],
+        [
+            [
+                0.29572401086345307,
+                "arr_block"
+            ],
+            [
+                0.29572401086345307,
+                "arr_block_layer"
+            ]
+        ],
+        [
+            [
+                0.48145555914480215,
+                "arr_block"
+            ],
+            [
+                0.48145555914480215,
+                "arr_block"
+            ]
+        ],
+        [
+            [
+                0.6100941579029229,
+                "arr_block"
+            ]
+        ],
+        [
+            [
+                0.7024095808956367,
+                "arr_block"
+            ]
+        ],
+        [
+            [
+                0.7820429991744733,
+                "arr_block"
+            ]
+        ],
+        [
+            [
+                0.3064438940932965,
+                "arr_layer"
+            ]
+        ],
+        [
+            [
+                0.4871504971106565,
+                "arr_layer"
+            ],
+            [
+                0.4871504971106565,
+                "arr_layer"
+            ]
+        ],
+        [
+            [
+                0.6096634483088667,
+                "arr_layer"
+            ]
+        ],
+        [
+            [
+                0.7061423973774571,
+                "arr_layer"
+            ]
+        ],
+        [
+            [
+                0.7796501680963832,
+                "arr_layer"
+            ]
+        ],
+        [
+            [
+                0.47489920199083546,
+                "arr_block_layer"
+            ],
+            [
+                0.47489920199083546,
+                "arr_block_layer"
+            ]
+        ],
+        [
+            [
+                0.6096634483088667,
+                "arr_block_layer"
+            ]
+        ],
+        [
+            [
+                0.7015481617075242,
+                "arr_block_layer"
+            ]
+        ],
+        [
+            [
+                0.788838639436249,
+                "arr_block_layer"
+            ]
+        ]
+    ],
+    "configs": [
+        {
+            "arr_name": "arr_block",
+            "targetRatio": 0.1,
+            "targetParam": 267465.60000000003,
+            "actualRatio": 0.11042317217616023,
+            "actualParam": 295344,
+            "got": [
+                "/model.0/conv/Conv",
+                "/model.7/conv/Conv"
+            ]
+        },
+        {
+            "arr_name": "arr_block",
+            "targetRatio": 0.2,
+            "targetParam": 534931.2000000001,
+            "actualRatio": 0.22068482825454938,
+            "actualParam": 590256,
+            "got": [
+                "/model.0/conv/Conv",
+                "/model.7/conv/Conv",
+                "/model.5/conv/Conv",
+                "/model.20/conv/Conv"
+            ]
+        },
+        {
+            "arr_name": "arr_block",
+            "targetRatio": 0.3,
+            "targetParam": 802396.7999999999,
+            "actualRatio": 0.29572401086345307,
+            "actualParam": 790960,
+            "got": [
+                "/model.0/conv/Conv",
+                "/model.7/conv/Conv",
+                "/model.5/conv/Conv",
+                "/model.20/conv/Conv",
+                "/model.9/cv2/conv/Conv",
+                "/model.9/cv1/conv/Conv",
+                "/model.17/conv/Conv"
+            ]
+        },
+        {
+            "arr_name": "arr_block",
+            "targetRatio": 0.4,
+            "targetParam": 1069862.4000000001,
+            "actualRatio": 0.48145555914480215,
+            "actualParam": 1287728,
+            "got": [
+                "/model.0/conv/Conv",
+                "/model.7/conv/Conv",
+                "/model.5/conv/Conv",
+                "/model.20/conv/Conv",
+                "/model.9/cv2/conv/Conv",
+                "/model.9/cv1/conv/Conv",
+                "/model.17/conv/Conv",
+                "/model.3/conv/Conv",
+                "/model.22/cv2/conv/Conv",
+                "/model.22/cv1/conv/Conv",
+                "/model.22/m.0/m.0.1/ffn/ffn.1/conv/Conv",
+                "/model.22/m.0/m.0.1/ffn/ffn.0/conv/Conv",
+                "/model.22/m.0/m.0.1/attn/proj/conv/Conv",
+                "/model.22/m.0/m.0.1/attn/pe/conv/Conv",
+                "/model.22/m.0/m.0.1/attn/qkv/conv/Conv",
+                "/model.22/m.0/m.0.0/cv2/conv/Conv",
+                "/model.22/m.0/m.0.0/cv1/conv/Conv"
+            ]
+        },
+        {
+            "arr_name": "arr_block",
+            "targetRatio": 0.5,
+            "targetParam": 1337328.0,
+            "actualRatio": 0.48145555914480215,
+            "actualParam": 1287728,
+            "got": [
+                "/model.0/conv/Conv",
+                "/model.7/conv/Conv",
+                "/model.5/conv/Conv",
+                "/model.20/conv/Conv",
+                "/model.9/cv2/conv/Conv",
+                "/model.9/cv1/conv/Conv",
+                "/model.17/conv/Conv",
+                "/model.3/conv/Conv",
+                "/model.22/cv2/conv/Conv",
+                "/model.22/cv1/conv/Conv",
+                "/model.22/m.0/m.0.1/ffn/ffn.1/conv/Conv",
+                "/model.22/m.0/m.0.1/ffn/ffn.0/conv/Conv",
+                "/model.22/m.0/m.0.1/attn/proj/conv/Conv",
+                "/model.22/m.0/m.0.1/attn/pe/conv/Conv",
+                "/model.22/m.0/m.0.1/attn/qkv/conv/Conv",
+                "/model.22/m.0/m.0.0/cv2/conv/Conv",
+                "/model.22/m.0/m.0.0/cv1/conv/Conv"
+            ]
+        },
+        {
+            "arr_name": "arr_block",
+            "targetRatio": 0.6,
+            "targetParam": 1604793.5999999999,
+            "actualRatio": 0.6100941579029229,
+            "actualParam": 1631792,
+            "got": [
+                "/model.0/conv/Conv",
+                "/model.7/conv/Conv",
+                "/model.5/conv/Conv",
+                "/model.20/conv/Conv",
+                "/model.9/cv2/conv/Conv",
+                "/model.9/cv1/conv/Conv",
+                "/model.17/conv/Conv",
+                "/model.3/conv/Conv",
+                "/model.22/cv2/conv/Conv",
+                "/model.22/cv1/conv/Conv",
+                "/model.22/m.0/m.0.1/ffn/ffn.1/conv/Conv",
+                "/model.22/m.0/m.0.1/ffn/ffn.0/conv/Conv",
+                "/model.22/m.0/m.0.1/attn/proj/conv/Conv",
+                "/model.22/m.0/m.0.1/attn/pe/conv/Conv",
+                "/model.22/m.0/m.0.1/attn/qkv/conv/Conv",
+                "/model.22/m.0/m.0.0/cv2/conv/Conv",
+                "/model.22/m.0/m.0.0/cv1/conv/Conv",
+                "/model.8/m.0/cv2/conv/Conv",
+                "/model.8/m.0/m/m.1/cv1/conv/Conv",
+                "/model.8/m.0/cv3/conv/Conv",
+                "/model.8/m.0/m/m.1/cv2/conv/Conv",
+                "/model.8/m.0/cv1/conv/Conv",
+                "/model.8/m.0/m/m.0/cv2/conv/Conv",
+                "/model.8/cv2/conv/Conv",
+                "/model.8/cv1/conv/Conv",
+                "/model.8/m.0/m/m.0/cv1/conv/Conv"
+            ]
+        },
+        {
+            "arr_name": "arr_block",
+            "targetRatio": 0.7,
+            "targetParam": 1872259.2,
+            "actualRatio": 0.7024095808956367,
+            "actualParam": 1878704,
+            "got": [
+                "/model.0/conv/Conv",
+                "/model.7/conv/Conv",
+                "/model.5/conv/Conv",
+                "/model.20/conv/Conv",
+                "/model.9/cv2/conv/Conv",
+                "/model.9/cv1/conv/Conv",
+                "/model.17/conv/Conv",
+                "/model.3/conv/Conv",
+                "/model.22/cv2/conv/Conv",
+                "/model.22/cv1/conv/Conv",
+                "/model.22/m.0/m.0.1/ffn/ffn.1/conv/Conv",
+                "/model.22/m.0/m.0.1/ffn/ffn.0/conv/Conv",
+                "/model.22/m.0/m.0.1/attn/proj/conv/Conv",
+                "/model.22/m.0/m.0.1/attn/pe/conv/Conv",
+                "/model.22/m.0/m.0.1/attn/qkv/conv/Conv",
+                "/model.22/m.0/m.0.0/cv2/conv/Conv",
+                "/model.22/m.0/m.0.0/cv1/conv/Conv",
+                "/model.8/m.0/cv2/conv/Conv",
+                "/model.8/m.0/m/m.1/cv1/conv/Conv",
+                "/model.8/m.0/cv3/conv/Conv",
+                "/model.8/m.0/m/m.1/cv2/conv/Conv",
+                "/model.8/m.0/cv1/conv/Conv",
+                "/model.8/m.0/m/m.0/cv2/conv/Conv",
+                "/model.8/cv2/conv/Conv",
+                "/model.8/cv1/conv/Conv",
+                "/model.8/m.0/m/m.0/cv1/conv/Conv",
+                "/model.10/m/m.0/attn/pe/conv/Conv",
+                "/model.10/m/m.0/ffn/ffn.1/conv/Conv",
+                "/model.10/cv1/conv/Conv",
+                "/model.10/m/m.0/attn/qkv/conv/Conv",
+                "/model.10/m/m.0/ffn/ffn.0/conv/Conv",
+                "/model.10/m/m.0/attn/proj/conv/Conv",
+                "/model.10/cv2/conv/Conv"
+            ]
+        },
+        {
+            "arr_name": "arr_block",
+            "targetRatio": 0.8,
+            "targetParam": 2139724.8000000003,
+            "actualRatio": 0.7820429991744733,
+            "actualParam": 2091696,
+            "got": [
+                "/model.0/conv/Conv",
+                "/model.7/conv/Conv",
+                "/model.5/conv/Conv",
+                "/model.20/conv/Conv",
+                "/model.9/cv2/conv/Conv",
+                "/model.9/cv1/conv/Conv",
+                "/model.17/conv/Conv",
+                "/model.3/conv/Conv",
+                "/model.22/cv2/conv/Conv",
+                "/model.22/cv1/conv/Conv",
+                "/model.22/m.0/m.0.1/ffn/ffn.1/conv/Conv",
+                "/model.22/m.0/m.0.1/ffn/ffn.0/conv/Conv",
+                "/model.22/m.0/m.0.1/attn/proj/conv/Conv",
+                "/model.22/m.0/m.0.1/attn/pe/conv/Conv",
+                "/model.22/m.0/m.0.1/attn/qkv/conv/Conv",
+                "/model.22/m.0/m.0.0/cv2/conv/Conv",
+                "/model.22/m.0/m.0.0/cv1/conv/Conv",
+                "/model.8/m.0/cv2/conv/Conv",
+                "/model.8/m.0/m/m.1/cv1/conv/Conv",
+                "/model.8/m.0/cv3/conv/Conv",
+                "/model.8/m.0/m/m.1/cv2/conv/Conv",
+                "/model.8/m.0/cv1/conv/Conv",
+                "/model.8/m.0/m/m.0/cv2/conv/Conv",
+                "/model.8/cv2/conv/Conv",
+                "/model.8/cv1/conv/Conv",
+                "/model.8/m.0/m/m.0/cv1/conv/Conv",
+                "/model.10/m/m.0/attn/pe/conv/Conv",
+                "/model.10/m/m.0/ffn/ffn.1/conv/Conv",
+                "/model.10/cv1/conv/Conv",
+                "/model.10/m/m.0/attn/qkv/conv/Conv",
+                "/model.10/m/m.0/ffn/ffn.0/conv/Conv",
+                "/model.10/m/m.0/attn/proj/conv/Conv",
+                "/model.10/cv2/conv/Conv",
+                "/model.13/m.0/m/m.1/cv2/conv/Conv",
+                "/model.13/m.0/m/m.0/cv1/conv/Conv",
+                "/model.13/m.0/m/m.0/cv2/conv/Conv",
+                "/model.13/m.0/cv1/conv/Conv",
+                "/model.13/m.0/cv2/conv/Conv",
+                "/model.13/m.0/m/m.1/cv1/conv/Conv",
+                "/model.13/cv1/conv/Conv",
+                "/model.13/cv2/conv/Conv",
+                "/model.13/m.0/cv3/conv/Conv",
+                "/model.19/m.0/cv1/conv/Conv",
+                "/model.19/m.0/m/m.1/cv1/conv/Conv",
+                "/model.19/cv1/conv/Conv",
+                "/model.19/m.0/m/m.0/cv1/conv/Conv",
+                "/model.19/m.0/cv3/conv/Conv",
+                "/model.19/m.0/m/m.0/cv2/conv/Conv",
+                "/model.19/cv2/conv/Conv",
+                "/model.19/m.0/m/m.1/cv2/conv/Conv",
+                "/model.19/m.0/cv2/conv/Conv"
+            ]
+        },
+        {
+            "arr_name": "arr_layer",
+            "targetRatio": 0.11042317217616023,
+            "targetParam": 295344.0,
+            "actualRatio": 0.11042317217616023,
+            "actualParam": 295344,
+            "got": [
+                "/model.0/conv/Conv",
+                "/model.7/conv/Conv"
+            ]
+        },
+        {
+            "arr_name": "arr_layer",
+            "targetRatio": 0.22068482825454938,
+            "targetParam": 590256.0,
+            "actualRatio": 0.22068482825454938,
+            "actualParam": 590256,
+            "got": [
+                "/model.0/conv/Conv",
+                "/model.7/conv/Conv",
+                "/model.5/conv/Conv",
+                "/model.20/conv/Conv"
+            ]
+        },
+        {
+            "arr_name": "arr_layer",
+            "targetRatio": 0.29572401086345307,
+            "targetParam": 790959.9999999999,
+            "actualRatio": 0.3064438940932965,
+            "actualParam": 819632,
+            "got": [
+                "/model.0/conv/Conv",
+                "/model.7/conv/Conv",
+                "/model.5/conv/Conv",
+                "/model.20/conv/Conv",
+                "/model.9/cv2/conv/Conv",
+                "/model.22/cv1/conv/Conv"
+            ]
+        },
+        {
+            "arr_name": "arr_layer",
+            "targetRatio": 0.48145555914480215,
+            "targetParam": 1287728.0,
+            "actualRatio": 0.4871504971106565,
+            "actualParam": 1302960,
+            "got": [
+                "/model.0/conv/Conv",
+                "/model.7/conv/Conv",
+                "/model.5/conv/Conv",
+                "/model.20/conv/Conv",
+                "/model.9/cv2/conv/Conv",
+                "/model.22/cv1/conv/Conv",
+                "/model.8/cv2/conv/Conv",
+                "/model.22/cv2/conv/Conv",
+                "/model.22/m.0/m.0.0/cv2/conv/Conv",
+                "/model.22/m.0/m.0.0/cv1/conv/Conv",
+                "/model.23/one2one_cv4.2/one2one_cv4.2.0/conv/Conv",
+                "/model.10/cv1/conv/Conv"
+            ]
+        },
+        {
+            "arr_name": "arr_layer",
+            "targetRatio": 0.48145555914480215,
+            "targetParam": 1287728.0,
+            "actualRatio": 0.4871504971106565,
+            "actualParam": 1302960,
+            "got": [
+                "/model.0/conv/Conv",
+                "/model.7/conv/Conv",
+                "/model.5/conv/Conv",
+                "/model.20/conv/Conv",
+                "/model.9/cv2/conv/Conv",
+                "/model.22/cv1/conv/Conv",
+                "/model.8/cv2/conv/Conv",
+                "/model.22/cv2/conv/Conv",
+                "/model.22/m.0/m.0.0/cv2/conv/Conv",
+                "/model.22/m.0/m.0.0/cv1/conv/Conv",
+                "/model.23/one2one_cv4.2/one2one_cv4.2.0/conv/Conv",
+                "/model.10/cv1/conv/Conv"
+            ]
+        },
+        {
+            "arr_name": "arr_layer",
+            "targetRatio": 0.6100941579029229,
+            "targetParam": 1631792.0,
+            "actualRatio": 0.6096634483088667,
+            "actualParam": 1630640,
+            "got": [
+                "/model.0/conv/Conv",
+                "/model.7/conv/Conv",
+                "/model.5/conv/Conv",
+                "/model.20/conv/Conv",
+                "/model.9/cv2/conv/Conv",
+                "/model.22/cv1/conv/Conv",
+                "/model.8/cv2/conv/Conv",
+                "/model.22/cv2/conv/Conv",
+                "/model.22/m.0/m.0.0/cv2/conv/Conv",
+                "/model.22/m.0/m.0.0/cv1/conv/Conv",
+                "/model.23/one2one_cv4.2/one2one_cv4.2.0/conv/Conv",
+                "/model.10/cv1/conv/Conv",
+                "/model.8/cv1/conv/Conv",
+                "/model.10/cv2/conv/Conv",
+                "/model.13/cv1/conv/Conv",
+                "/model.8/m.0/m/m.0/cv1/conv/Conv",
+                "/model.23/proto/cv2/conv/Conv",
+                "/model.23/proto/cv1/conv/Conv",
+                "/model.8/m.0/m/m.1/cv2/conv/Conv"
+            ]
+        },
+        {
+            "arr_name": "arr_layer",
+            "targetRatio": 0.7024095808956367,
+            "targetParam": 1878704.0,
+            "actualRatio": 0.7061423973774571,
+            "actualParam": 1888688,
+            "got": [
+                "/model.0/conv/Conv",
+                "/model.7/conv/Conv",
+                "/model.5/conv/Conv",
+                "/model.20/conv/Conv",
+                "/model.9/cv2/conv/Conv",
+                "/model.22/cv1/conv/Conv",
+                "/model.8/cv2/conv/Conv",
+                "/model.22/cv2/conv/Conv",
+                "/model.22/m.0/m.0.0/cv2/conv/Conv",
+                "/model.22/m.0/m.0.0/cv1/conv/Conv",
+                "/model.23/one2one_cv4.2/one2one_cv4.2.0/conv/Conv",
+                "/model.10/cv1/conv/Conv",
+                "/model.8/cv1/conv/Conv",
+                "/model.10/cv2/conv/Conv",
+                "/model.13/cv1/conv/Conv",
+                "/model.8/m.0/m/m.0/cv1/conv/Conv",
+                "/model.23/proto/cv2/conv/Conv",
+                "/model.23/proto/cv1/conv/Conv",
+                "/model.8/m.0/m/m.1/cv2/conv/Conv",
+                "/model.17/conv/Conv",
+                "/model.8/m.0/m/m.1/cv1/conv/Conv",
+                "/model.8/m.0/m/m.0/cv2/conv/Conv",
+                "/model.23/proto/feat_fuse/conv/Conv",
+                "/model.23/one2one_cv4.1/one2one_cv4.1.0/conv/Conv",
+                "/model.23/one2one_cv2.2/one2one_cv2.2.0/conv/Conv",
+                "/model.3/conv/Conv"
+            ]
+        },
+        {
+            "arr_name": "arr_layer",
+            "targetRatio": 0.7820429991744733,
+            "targetParam": 2091696.0,
+            "actualRatio": 0.7796501680963832,
+            "actualParam": 2085296,
+            "got": [
+                "/model.0/conv/Conv",
+                "/model.7/conv/Conv",
+                "/model.5/conv/Conv",
+                "/model.20/conv/Conv",
+                "/model.9/cv2/conv/Conv",
+                "/model.22/cv1/conv/Conv",
+                "/model.8/cv2/conv/Conv",
+                "/model.22/cv2/conv/Conv",
+                "/model.22/m.0/m.0.0/cv2/conv/Conv",
+                "/model.22/m.0/m.0.0/cv1/conv/Conv",
+                "/model.23/one2one_cv4.2/one2one_cv4.2.0/conv/Conv",
+                "/model.10/cv1/conv/Conv",
+                "/model.8/cv1/conv/Conv",
+                "/model.10/cv2/conv/Conv",
+                "/model.13/cv1/conv/Conv",
+                "/model.8/m.0/m/m.0/cv1/conv/Conv",
+                "/model.23/proto/cv2/conv/Conv",
+                "/model.23/proto/cv1/conv/Conv",
+                "/model.8/m.0/m/m.1/cv2/conv/Conv",
+                "/model.17/conv/Conv",
+                "/model.8/m.0/m/m.1/cv1/conv/Conv",
+                "/model.8/m.0/m/m.0/cv2/conv/Conv",
+                "/model.23/proto/feat_fuse/conv/Conv",
+                "/model.23/one2one_cv4.1/one2one_cv4.1.0/conv/Conv",
+                "/model.23/one2one_cv2.2/one2one_cv2.2.0/conv/Conv",
+                "/model.3/conv/Conv",
+                "/model.10/m/m.0/ffn/ffn.1/conv/Conv",
+                "/model.22/m.0/m.0.1/attn/qkv/conv/Conv",
+                "/model.10/m/m.0/attn/qkv/conv/Conv",
+                "/model.9/cv1/conv/Conv",
+                "/model.22/m.0/m.0.1/ffn/ffn.0/conv/Conv",
+                "/model.22/m.0/m.0.1/ffn/ffn.1/conv/Conv"
+            ]
+        },
+        {
+            "arr_name": "arr_block_layer",
+            "targetRatio": 0.11042317217616023,
+            "targetParam": 295344.0,
+            "actualRatio": 0.11042317217616023,
+            "actualParam": 295344,
+            "got": [
+                "/model.0/conv/Conv",
+                "/model.7/conv/Conv"
+            ]
+        },
+        {
+            "arr_name": "arr_block_layer",
+            "targetRatio": 0.22068482825454938,
+            "targetParam": 590256.0,
+            "actualRatio": 0.22068482825454938,
+            "actualParam": 590256,
+            "got": [
+                "/model.0/conv/Conv",
+                "/model.7/conv/Conv",
+                "/model.5/conv/Conv",
+                "/model.20/conv/Conv"
+            ]
+        },
+        {
+            "arr_name": "arr_block_layer",
+            "targetRatio": 0.29572401086345307,
+            "targetParam": 790959.9999999999,
+            "actualRatio": 0.29572401086345307,
+            "actualParam": 790960,
+            "got": [
+                "/model.0/conv/Conv",
+                "/model.7/conv/Conv",
+                "/model.5/conv/Conv",
+                "/model.20/conv/Conv",
+                "/model.9/cv2/conv/Conv",
+                "/model.9/cv1/conv/Conv",
+                "/model.17/conv/Conv"
+            ]
+        },
+        {
+            "arr_name": "arr_block_layer",
+            "targetRatio": 0.48145555914480215,
+            "targetParam": 1287728.0,
+            "actualRatio": 0.47489920199083546,
+            "actualParam": 1270192,
+            "got": [
+                "/model.0/conv/Conv",
+                "/model.7/conv/Conv",
+                "/model.5/conv/Conv",
+                "/model.20/conv/Conv",
+                "/model.9/cv2/conv/Conv",
+                "/model.9/cv1/conv/Conv",
+                "/model.17/conv/Conv",
+                "/model.3/conv/Conv",
+                "/model.22/cv1/conv/Conv",
+                "/model.22/cv2/conv/Conv",
+                "/model.22/m.0/m.0.0/cv2/conv/Conv",
+                "/model.22/m.0/m.0.0/cv1/conv/Conv",
+                "/model.22/m.0/m.0.1/attn/qkv/conv/Conv",
+                "/model.22/m.0/m.0.1/ffn/ffn.0/conv/Conv",
+                "/model.22/m.0/m.0.1/ffn/ffn.1/conv/Conv"
+            ]
+        },
+        {
+            "arr_name": "arr_block_layer",
+            "targetRatio": 0.48145555914480215,
+            "targetParam": 1287728.0,
+            "actualRatio": 0.47489920199083546,
+            "actualParam": 1270192,
+            "got": [
+                "/model.0/conv/Conv",
+                "/model.7/conv/Conv",
+                "/model.5/conv/Conv",
+                "/model.20/conv/Conv",
+                "/model.9/cv2/conv/Conv",
+                "/model.9/cv1/conv/Conv",
+                "/model.17/conv/Conv",
+                "/model.3/conv/Conv",
+                "/model.22/cv1/conv/Conv",
+                "/model.22/cv2/conv/Conv",
+                "/model.22/m.0/m.0.0/cv2/conv/Conv",
+                "/model.22/m.0/m.0.0/cv1/conv/Conv",
+                "/model.22/m.0/m.0.1/attn/qkv/conv/Conv",
+                "/model.22/m.0/m.0.1/ffn/ffn.0/conv/Conv",
+                "/model.22/m.0/m.0.1/ffn/ffn.1/conv/Conv"
+            ]
+        },
+        {
+            "arr_name": "arr_block_layer",
+            "targetRatio": 0.6100941579029229,
+            "targetParam": 1631792.0,
+            "actualRatio": 0.6096634483088667,
+            "actualParam": 1630640,
+            "got": [
+                "/model.0/conv/Conv",
+                "/model.7/conv/Conv",
+                "/model.5/conv/Conv",
+                "/model.20/conv/Conv",
+                "/model.9/cv2/conv/Conv",
+                "/model.9/cv1/conv/Conv",
+                "/model.17/conv/Conv",
+                "/model.3/conv/Conv",
+                "/model.22/cv1/conv/Conv",
+                "/model.22/cv2/conv/Conv",
+                "/model.22/m.0/m.0.0/cv2/conv/Conv",
+                "/model.22/m.0/m.0.0/cv1/conv/Conv",
+                "/model.22/m.0/m.0.1/attn/qkv/conv/Conv",
+                "/model.22/m.0/m.0.1/ffn/ffn.0/conv/Conv",
+                "/model.22/m.0/m.0.1/ffn/ffn.1/conv/Conv",
+                "/model.8/cv2/conv/Conv",
+                "/model.8/cv1/conv/Conv",
+                "/model.8/m.0/m/m.0/cv1/conv/Conv",
+                "/model.8/m.0/m/m.1/cv2/conv/Conv",
+                "/model.8/m.0/m/m.1/cv1/conv/Conv",
+                "/model.8/m.0/m/m.0/cv2/conv/Conv",
+                "/model.22/m.0/m.0.1/attn/proj/conv/Conv",
+                "/model.8/m.0/cv3/conv/Conv",
+                "/model.8/m.0/cv2/conv/Conv",
+                "/model.8/m.0/cv1/conv/Conv"
+            ]
+        },
+        {
+            "arr_name": "arr_block_layer",
+            "targetRatio": 0.7024095808956367,
+            "targetParam": 1878704.0,
+            "actualRatio": 0.7015481617075242,
+            "actualParam": 1876400,
+            "got": [
+                "/model.0/conv/Conv",
+                "/model.7/conv/Conv",
+                "/model.5/conv/Conv",
+                "/model.20/conv/Conv",
+                "/model.9/cv2/conv/Conv",
+                "/model.9/cv1/conv/Conv",
+                "/model.17/conv/Conv",
+                "/model.3/conv/Conv",
+                "/model.22/cv1/conv/Conv",
+                "/model.22/cv2/conv/Conv",
+                "/model.22/m.0/m.0.0/cv2/conv/Conv",
+                "/model.22/m.0/m.0.0/cv1/conv/Conv",
+                "/model.22/m.0/m.0.1/attn/qkv/conv/Conv",
+                "/model.22/m.0/m.0.1/ffn/ffn.0/conv/Conv",
+                "/model.22/m.0/m.0.1/ffn/ffn.1/conv/Conv",
+                "/model.8/cv2/conv/Conv",
+                "/model.8/cv1/conv/Conv",
+                "/model.8/m.0/m/m.0/cv1/conv/Conv",
+                "/model.8/m.0/m/m.1/cv2/conv/Conv",
+                "/model.8/m.0/m/m.1/cv1/conv/Conv",
+                "/model.8/m.0/m/m.0/cv2/conv/Conv",
+                "/model.22/m.0/m.0.1/attn/proj/conv/Conv",
+                "/model.8/m.0/cv3/conv/Conv",
+                "/model.8/m.0/cv2/conv/Conv",
+                "/model.8/m.0/cv1/conv/Conv",
+                "/model.10/cv1/conv/Conv",
+                "/model.10/cv2/conv/Conv",
+                "/model.10/m/m.0/ffn/ffn.1/conv/Conv",
+                "/model.10/m/m.0/attn/qkv/conv/Conv",
+                "/model.10/m/m.0/ffn/ffn.0/conv/Conv",
+                "/model.10/m/m.0/attn/proj/conv/Conv"
+            ]
+        },
+        {
+            "arr_name": "arr_block_layer",
+            "targetRatio": 0.7820429991744733,
+            "targetParam": 2091696.0,
+            "actualRatio": 0.788838639436249,
+            "actualParam": 2109872,
+            "got": [
+                "/model.0/conv/Conv",
+                "/model.7/conv/Conv",
+                "/model.5/conv/Conv",
+                "/model.20/conv/Conv",
+                "/model.9/cv2/conv/Conv",
+                "/model.9/cv1/conv/Conv",
+                "/model.17/conv/Conv",
+                "/model.3/conv/Conv",
+                "/model.22/cv1/conv/Conv",
+                "/model.22/cv2/conv/Conv",
+                "/model.22/m.0/m.0.0/cv2/conv/Conv",
+                "/model.22/m.0/m.0.0/cv1/conv/Conv",
+                "/model.22/m.0/m.0.1/attn/qkv/conv/Conv",
+                "/model.22/m.0/m.0.1/ffn/ffn.0/conv/Conv",
+                "/model.22/m.0/m.0.1/ffn/ffn.1/conv/Conv",
+                "/model.8/cv2/conv/Conv",
+                "/model.8/cv1/conv/Conv",
+                "/model.8/m.0/m/m.0/cv1/conv/Conv",
+                "/model.8/m.0/m/m.1/cv2/conv/Conv",
+                "/model.8/m.0/m/m.1/cv1/conv/Conv",
+                "/model.8/m.0/m/m.0/cv2/conv/Conv",
+                "/model.22/m.0/m.0.1/attn/proj/conv/Conv",
+                "/model.8/m.0/cv3/conv/Conv",
+                "/model.8/m.0/cv2/conv/Conv",
+                "/model.8/m.0/cv1/conv/Conv",
+                "/model.10/cv1/conv/Conv",
+                "/model.10/cv2/conv/Conv",
+                "/model.10/m/m.0/ffn/ffn.1/conv/Conv",
+                "/model.10/m/m.0/attn/qkv/conv/Conv",
+                "/model.10/m/m.0/ffn/ffn.0/conv/Conv",
+                "/model.10/m/m.0/attn/proj/conv/Conv",
+                "/model.13/cv1/conv/Conv",
+                "/model.13/cv2/conv/Conv",
+                "/model.13/m.0/m/m.0/cv1/conv/Conv",
+                "/model.13/m.0/m/m.1/cv2/conv/Conv",
+                "/model.13/m.0/m/m.1/cv1/conv/Conv",
+                "/model.13/m.0/m/m.0/cv2/conv/Conv",
+                "/model.19/cv1/conv/Conv",
+                "/model.19/cv2/conv/Conv",
+                "/model.23/one2one_cv4.2/one2one_cv4.2.0/conv/Conv"
+            ]
+        }
+    ]
+}
